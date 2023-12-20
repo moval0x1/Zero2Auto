@@ -48,5 +48,5 @@ enc_strs = get_encoded_strs(refs)
 for x in enc_strs:
     splited = x.split(';')
     decoded_str = decode_str(int(splited[1],16))
-    print(f"[+] {splited[0]} => {decoded_str}")
+    print(f"[+] {hex(int(splited[0]))} => {decoded_str}")
     bv.set_comment_at(int(splited[0]), decoded_str)
