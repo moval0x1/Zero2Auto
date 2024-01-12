@@ -25,27 +25,31 @@ def rc4_decrypt(key, data):
     return decrypted[20:]
 
 def decompress_data(data, blocksize=DEFAULT_BLOCK_SIZE, level=1):
-	decompressed_data = bytes() 
-	max_packed_size = brieflz.blz_max_packed_size(blocksize);
+    """
+        Reference: https://github.com/sysopfb/Malware_Scripts/blob/master/qakbot/blzpack.py#L74
+    """
+
+    decompressed_data = bytes() 
+    max_packed_size = brieflz.blz_max_packed_size(blocksize);
 	
-	(magic,level,packedsize,crc,hdr_depackedsize,crc2) = struct.unpack_from('>IIIIII', data)
-	data = data[24:]
-	while magic == 0x626C7A1A and len(data) > 0:
-		compressed_data = create_string_buffer(data[:packedsize])
-		workdata = create_string_buffer(blocksize)
-		depackedsize = brieflz.blz_depack(byref(compressed_data), byref(workdata), c_int(hdr_depackedsize))
-		if depackedsize != hdr_depackedsize:
-			print("Decompression error")
-			print("DepackedSize: "+str(depackedsize) + "\nHdrVal: "+str(hdr_depackedsize))
-			return None
-		decompressed_data += workdata.raw[:depackedsize]
-		data = data[packedsize:]
-		if len(data) > 0:
-			(magic,level,packedsize,crc,hdr_depackedsize,crc2) = struct.unpack_from('>IIIIII', data)
-			data = data[24:]
-		else:
-			break
-	return decompressed_data
+    (magic,level,packedsize,crc,hdr_depackedsize,crc2) = struct.unpack_from('>IIIIII', data)
+    data = data[24:]
+    while magic == 0x626C7A1A and len(data) > 0:
+        compressed_data = create_string_buffer(data[:packedsize])
+        workdata = create_string_buffer(blocksize)
+        depackedsize = brieflz.blz_depack(byref(compressed_data), byref(workdata), c_int(hdr_depackedsize))
+        if depackedsize != hdr_depackedsize:
+            print("Decompression error")
+            print("DepackedSize: "+str(depackedsize) + "\nHdrVal: "+str(hdr_depackedsize))
+            return None
+        decompressed_data += workdata.raw[:depackedsize]
+        data = data[packedsize:]
+        if len(data) > 0:
+            (magic,level,packedsize,crc,hdr_depackedsize,crc2) = struct.unpack_from('>IIIIII', data)
+            data = data[24:]
+        else:
+            break
+        return decompressed_data
 
 def read_resource(pe_name, resource_name):
     
