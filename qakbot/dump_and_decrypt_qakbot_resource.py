@@ -7,7 +7,7 @@ import argparse
 import struct
 
 
-brieflz = cdll.LoadLibrary('/home/remnux/Desktop/Zero2Auto/Samples/Qakbot/winmachine/libbrieflz.so')
+brieflz = cdll.LoadLibrary('libbrieflz.so')
 DEFAULT_BLOCK_SIZE = 1024 * 1024
 
 def save_to_file(hex_content):
