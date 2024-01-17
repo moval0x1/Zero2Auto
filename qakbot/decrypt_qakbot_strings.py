@@ -23,13 +23,14 @@ def get_encoded_strs(refs):
     encoded_strs = []
     for x in refs:
     	splited_value = str(x.hlil).split('0x')
-    	if len(splited_value) > 1 and len(splited_value[1].replace(')','')) <= 4:
+        if len(splited_value) > 1 and len(splited_value[1].replace(')','')) <= 4:
             encoded_strs.append(f"{x.address};0x{splited_value[1].replace(')','')}")
     
     return encoded_strs
 
 def decode_str(eax_value):
     decoded_char = "xx"
+    lst_str = []
 
     while(decoded_char != "\x00"):
         dl = eax_value & 0x3F
