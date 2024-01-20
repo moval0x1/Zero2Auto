@@ -10,9 +10,9 @@ import struct
 brieflz = cdll.LoadLibrary('libbrieflz.so')
 DEFAULT_BLOCK_SIZE = 1024 * 1024
 
-def save_to_file(hex_content):
+def save_to_file(file_name, hex_content):
     
-    f = open("out.bin", "wb")
+    f = open(f"{file_name}.bin", "wb")
     f.write(hex_content)
     f.close()
 
@@ -20,8 +20,7 @@ def rc4_decrypt(key, data):
     cipher = ARC4(key)
     decrypted = cipher.decrypt(data)
     sha1_sum = decrypted[:20]
-
-    print("[+] Config extracted!")
+    
     return decrypted[20:]
 
 def decompress_data(data, blocksize=DEFAULT_BLOCK_SIZE, level=1):
@@ -104,8 +103,11 @@ def main():
     replaced_data = binascii.hexlify(decrypted_resource).decode().replace("616cd31a", "626C7A1A")
     decompressed_qbot = decompress_data(bytes.fromhex(replaced_data))
 
-    print("[+] Saving output file")
-    save_to_file(decompressed_qbot)
+    print(f"[+] Saving {args.res_name}.bin")
+    if decompressed_qbot == b'':
+        save_to_file(args.res_name, decrypted_resource)
+    else:
+        save_to_file(args.res_name, decompressed_qbot)
 
     print("[+] Done!")
 
