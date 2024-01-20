@@ -12,7 +12,7 @@ DEFAULT_BLOCK_SIZE = 1024 * 1024
 
 def save_to_file(file_name, hex_content):
     
-    f = open(f"{file_name}.bin", "wb")
+    f = open(f"{file_name}.out", "wb")
     f.write(hex_content)
     f.close()
 
@@ -103,7 +103,7 @@ def main():
     replaced_data = binascii.hexlify(decrypted_resource).decode().replace("616cd31a", "626C7A1A")
     decompressed_qbot = decompress_data(bytes.fromhex(replaced_data))
 
-    print(f"[+] Saving {args.res_name}.bin")
+    print(f"[+] Saving {args.res_name}")
     if decompressed_qbot == b'':
         save_to_file(args.res_name, decrypted_resource)
     else:
