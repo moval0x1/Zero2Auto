@@ -1,7 +1,7 @@
 """
-    Name        : Qakbot decode string
+    Name        : Qakbot decrypt string
     Author      : Charles Lomboni
-    Description : Binary Ninja plugin to decode strings from Qakbot sample
+    Description : Binary Ninja plugin to decrypt strings from Qakbot sample
 """
 
 xor_position = "3B7397BE28A1C5F978B59AB2051D03958DF21305135685E5460321F2A9E6606065A8F68BE82962667C5FEB26A23B607EA9220EA63E6F5F043DF1ECACB21F1869"

@@ -1,3 +1,9 @@
+"""
+    Name        : Qakbot dump and decrypt resource
+    Author      : Charles Lomboni
+    Description : Python script to dump and decrypt resource from Qakbot sample
+"""
+
 from arc4 import ARC4
 from ctypes import *
 
