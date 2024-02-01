@@ -80,9 +80,9 @@ def read_resource(pe_name, resource_name):
 
 def get_args():
 
-    parser = argparse.ArgumentParser(description='Remcos Config Extractor.')
-    parser.add_argument("-f", "--file_path", type=str, help='File path of the Remcos binary')
-    parser.add_argument("-r", "--res_name", type=str, help='Name of the resource file inside the Remcos binary')
+    parser = argparse.ArgumentParser(description='Qakbot Config Extractor.')
+    parser.add_argument("-f", "--file_path", type=str, help='File path of the Qakbot binary')
+    parser.add_argument("-r", "--res_name", type=str, help='Name of the resource file inside the Qakbot binary')
 
     args = parser.parse_args()
 
